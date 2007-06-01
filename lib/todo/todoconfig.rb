@@ -1,4 +1,4 @@
-TODOCONFIG = ENV['HOME']+'/.todo'
+TODOCONFIG = ENV['HOME']+'/.ptodo'
 
 require 'fs/configfile'
 

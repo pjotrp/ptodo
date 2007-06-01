@@ -1,0 +1,25 @@
+#! /usr/bin/ruby
+
+raise 'Only from root' if !File.exist? 'bin/ptodo'
+
+libruby = ENV['RUBYLIB'].split(/:/)[0]
+if !File.directory?(libruby)
+	raise "Where is #{libruby}?"
+end
+version = `cat bin/VERSION`.strip.split(/\s/)[0]
+
+name   = "ptodo-#{version}"
+zipfn  = "#{name}.zip"
+tmpdir = "/tmp/#{name}"
+
+print `rm -f #{zipfn}`
+# print `rm -rf lib/ruby`
+print `mkdir -p lib/ruby`
+print `find -name *rb|xargs package/fetch.rb #{libruby}`
+print `mkdir -p #{tmpdir}`
+print `cp -vau bin lib doc README LICENSE.txt #{tmpdir}/`
+print `cd /tmp/#{name}; find -name .svn -exec rm -rf \\{\\} \\;`
+print `cd /tmp ; zip -r #{name}.zip #{name}/*`
+print `cd /tmp ; tar cvzf #{name}.tgz #{name}/*`
+print `cp /tmp/#{name}.zip /tmp/#{name}.tgz .`
+# print `rm -rf lib/ruby`
