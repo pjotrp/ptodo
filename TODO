@@ -1,1 +1,7 @@
-- Localise dates (allow both mm/dd and dd/mm)
+At this point ptodo runs fine using dd/mm(/yyyy)? dates on a light background
+terminal (otherwise use the --no-color switch) and with one input file. The
+following needs to be improved:
+
+- Localise dates (allow both mm/dd and dd/mm) in ~/.ptodo
+- Allow for colour selection in ~/.ptodo
+- Use multiple input files in ~/.ptodo
