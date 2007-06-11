@@ -1,0 +1,144 @@
+= pTODO =
+
+pTODO is a command line todo manager, written in Ruby, which hooks into the
+remind calender tool. Unlike other textual todo managers it works from a
+straight text file - with an easy format for tags and dates.
+
+I include it here as scientists often have a bewildering number of projects and things to do. pTODO serves as both an example how easy it is to accomplish a tool like this in Ruby - and shows why scientists
+are best of with a number of carefully selected command line tools. pTODO uses a combination of a text editor (see VimEmacs) and a command line calender program.
+
+||attachment:ptodo1.png ||
+
+== Introduction ==
+
+This software I wrote in the quest of handling my ever growing TODO lists,
+tying them in with a calender - in fact multiple calenders for multiple
+projects. I have tried a number of software solutions - and in general you end
+up with separate programs. I wanted one solution, and preferably one that can be run 
+on any computer that can hold a repository.
+
+Lastly I think a textual (xterm) interface is fine - and the GUI should be a text
+editor (in my case vim) - as editors are made for cut and paste, repetition and
+search and replace. Something I do not want to learn a new interface for (even
+if it was offered).
+
+== The remind calendar program ==
+
+ptodo use a calendar tool named 'remind'. The [http://www.roaringpenguin.com/en/penguin/openSourceProducts/remind remind tool]
+is a great command line utility for maintaining a calender/diary with alarm
+functionality. For an overview see:
+
+http://www.lifehacker.com/software/top/geek-to-live--keep-your-calendar-in-plain-text-with-remind-186661.php
+
+In fact it is perfect, but it does not handle TODO lists well. This
+is because TODO lists
+have both dated and undated items, as wel as priority numbers. Furthermore TODO
+items fall into categories - which you want to split out. Typical queries are:
+
+  * list the TODO items for one project (or tag)
+  * list all items that are due
+  * list all dated items
+
+== pTODO ==
+
+Naturally I do not want to reinvent the wheel, so I checked a few TODO listing tools, like td (A Command-line Todo List Manager
+in Python) which has nice colors, but fell short because it stores items in XML
+(which is for machines, not for humans) and provides a command line language to modify items in
+the list. There is too much typing for my taste. I also had a look at the source code,
+and it did not invite to improve on.
+
+Similarly I reviewed another popular tool, named IKog, which shares a number of the same issues. Next I looked
+at todo.txt - which again has a command line type interface, and lacks date
+handling, for one.
+
+So - I ended up rolling my own (it is a theme really). Not so hard with Ruby - and great in conjunction with 
+the remind program. A minimal todo list file looks like:
+
+{{{
+  # priority   tags          description
+    01/05      [doc soon]    Write ptodo documentation 
+    +          [admin soon]  Pay bicycle shop
+               [science]     Figure tri in triangle
+    05/01/2008 [admin linux] Update packages
+  (etc.)
+}}}
+
+line 1 and 4 are dated items. Line 2 is prioritized and line 3 has no
+priority.
+
+Tell ptodo where to find this file in ~/.ptodo:
+
+{{{
+todos: /home/pjotr/flash/todos/todo.txt
+}}}
+
+Where everything is optional. A priority can also be a number or letter. Standard use is:
+
+{{{
+	ptodo --help               (show options)
+  ptodo                      (list all items with tag 'soon')
+  ptodo admin                (list all items with tag 'admin')
+  ptodo --due                (list all due items in the coming weeks)
+  ptodo --dated              (list all dated items)
+  ptodo --remind             (create output for remind)
+}}}
+
+Then I have some aliases which pipe into the remind calender tool:
+
+{{{
+  alias week='ptodo --remind|remind -c+1 -'
+  alias weeks='ptodo --remind|remind -c+4 -'
+  alias month='ptodo --remind|remind -c -'
+  alias months='ptodo --remind|remind -c3 -'
+}}}
+
+combining the dated items listed in the TODO list with the calender
+items in
+[http://www.roaringpenguin.com/en/penguin/openSourceProducts/remind
+remind]. See the screenshot at the bottom of this page.
+
+Obviously dated todo items can be piped to all 'remind' tools -
+including a GUI viewer and postscript/PDF output.
+
+
+== Screen shots ==
+
+||attachment:ptodo1.png ||
+
+ptodo without arguments lists all items tagged as 'soon', ordered by
+date and priority. For items that should be done the dates are printed red. 
+
+'soon' is a special tag for marking items that ought to be handled
+soon.
+
+||attachment:ptodo2.png ||
+
+Running ptodo with the --due flag lists all items that are due in the
+coming two weeks. In addition all items are set that have a priority
+set.
+
+||attachment:ptodo3.png ||
+
+Here all items are listed with the 'shop' tag. Items with a 'later'
+tag are always listed at the end. 
+
+'later' is a special tag for marking items that have no immediate
+concern.
+
+||attachment:ptodo4.png ||
+
+Here we pipe dated items in the pTODO list to the remind calender
+tool. Fancy constructs are possible, but here we show this weeks
+diary combined with due pTODO items.
+
+== Getting pTODO ==
+
+pTODO is hosted at [http://rubyforge.org/projects/ptodo/ Rubyforge] and can be downloaded from there.
+
+The source code can be downloaded and viewed here:
+
+http://rubyforge.org/scm/?group_id=3743
+
+Enjoy!
+
+PjotrPrins.
