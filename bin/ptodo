@@ -1,4 +1,8 @@
 #! /usr/bin/ruby
+#
+# Author:: Pjotr Prins
+# Copyright:: July 2007
+# License:: Ruby License
 
 rootpath = File.dirname(File.dirname(__FILE__))
 $: << rootpath+'/lib' 
