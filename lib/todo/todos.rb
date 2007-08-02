@@ -78,6 +78,12 @@ class Priority
   end
 
   def to_s
+    if date?
+      (d,m,y) = @original.strip.split(/\//)
+      s = sprintf("%0.2d/%0.2d",d.to_i,m.to_i)
+      s += '/'+y.to_s if y
+      return s
+    end
     @original.strip
   end
 
@@ -122,6 +128,8 @@ class Todo
     @fn       = fn
     @displayfn = File.basename(fn).sub(/\.\w+$/,'')
     if s =~ /(.*?)\[(.*?)\](.*)/
+      # items contains tags container [] e.g.
+      #  - [soon] description
       @priority = Priority.new($1)
       descr = $3
       @tags = $2.split(/\s+/)
@@ -133,7 +141,13 @@ class Todo
       end
     else
       if s.strip =~ /^(\S)\s+(.*)/
-        # A oneliner with priority
+        # A oneliner with a single letter priority (but no tags) e.g.
+        #  ! test
+        @priority = Priority.new($1)
+        @description = $2
+      elsif s.strip =~ /^\d+\/\d+/
+        # Ah, it has a date
+        s.strip =~ /^(\S+)\s+(.*)/
         @priority = Priority.new($1)
         @description = $2
       else

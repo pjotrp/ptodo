@@ -5,3 +5,8 @@ following needs to be improved:
 - Localise dates (allow both mm/dd and dd/mm) in ~/.ptodo
 - Allow for colour selection in ~/.ptodo
 - Use multiple input files in ~/.ptodo
+
+Fixed in v0.11:
+
+- Put untagged items in soon tag (when they have a date)
+- Format dates as dd/mm
