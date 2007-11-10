@@ -33,7 +33,7 @@ class Priority
       while guessyear and @time < Time.now - 3*30*24*3600
         year = year.to_i + 1
         @time = Time.local(year,month,day)
-        p [@time,@original]
+        # p [@time,@original]
       end
       @pri = year.to_s + month + day
     end
