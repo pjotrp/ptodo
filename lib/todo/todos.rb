@@ -12,6 +12,10 @@ end
 
 class Priority
 
+  # Sets the date for the item - when the year has not been defined and the
+  # date is more than 3 months in the past the (perhaps sensible) guess is that
+  # it is for next year.
+
   def initialize s=''
     @original = s
     @pri = s.strip
@@ -19,13 +23,19 @@ class Priority
     if @pri =~ /(\d+\/\d+)/
       @isdate = true
       short = $1
-      @pri = short+'/2007' if @pri !~ /\d+\/\d+\/20/ 
+      guessyear = (@pri !~ /\d+\/\d+\/20/)
+      @pri = short+'/2007' if guessyear
       @pri =~ /(\d+)\/(\d+)\/(\d+)/
       year = $3
       month = $2
       day = $1
-      @pri = year + month + day
       @time = Time.local(year,month,day)
+      while guessyear and @time < Time.now - 3*30*24*3600
+        year = year.to_i + 1
+        @time = Time.local(year,month,day)
+        p [@time,@original]
+      end
+      @pri = year.to_s + month + day
     end
   end
 
