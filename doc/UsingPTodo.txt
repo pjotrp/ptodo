@@ -4,6 +4,8 @@ pTODO is a command line todo manager, written in Ruby, which hooks into the
 remind calender tool. Unlike other textual todo managers it works from a
 straight text file - with an easy format for tags and dates.
 
+pTODO is hosted at [http://rubyforge.org/projects/ptodo/ Rubyforge] and can be downloaded from there.
+
 I include it here as scientists often have a bewildering number of projects and things to do. pTODO serves as both an example how easy it is to accomplish a tool like this in Ruby - and shows why scientists
 are best of with a number of carefully selected command line tools. pTODO uses a combination of a text editor (see VimEmacs) and a command line calender program.
 
@@ -58,13 +60,17 @@ the remind program. A minimal todo list file looks like:
   # priority   tags          description
     01/05      [doc soon]    Write ptodo documentation 
     +          [admin soon]  Pay bicycle shop
+    -          [shop later]  Buy a Mango velomobile
                [science]     Figure tri in triangle
+                 - This is a subsection of above line (ignored)
+                   . This is a subsection of above line (ignored)
     05/01/2008 [admin linux] Update packages
   (etc.)
 }}}
 
 line 1 and 4 are dated items. Line 2 is prioritized and line 3 has no
-priority.
+priority. For prioritization any character can be used - they are
+sorted by priority.
 
 Tell ptodo where to find this file in ~/.ptodo:
 
@@ -75,7 +81,7 @@ todos: /home/pjotr/flash/todos/todo.txt
 Where everything is optional. A priority can also be a number or letter. Standard use is:
 
 {{{
-	ptodo --help               (show options)
+  ptodo --help               (show options)
   ptodo                      (list all items with tag 'soon')
   ptodo admin                (list all items with tag 'admin')
   ptodo --due                (list all due items in the coming weeks)

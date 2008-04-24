@@ -27,7 +27,7 @@ Examples:
     ptodo later               ; print all items with tags named 'later'
     ptodo later math          ; print all items with tags 'later' and 'math'
     ptodo '(later|math)'      ; print all items with tags 'later' or 'math'
-    ptodo (math200\d)         ; print all math items with tags like math2007
+    ptodo (math200\\d)         ; print all math items with tags like math2007
     ptodo --dated             ; print all dated items
     ptodo --due               ; print all due items (2 weeks ahead)
     ptodo --remind| remind -c -       ; pipe into remind program
