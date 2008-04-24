@@ -24,13 +24,15 @@ opts = OptionParser.new() { |opts|
 
 Examples:
 
-		ptodo later               ; print all items with tags named 'later'
-		ptodo later math          ; print all items with tags 'later' and 'math'
-		ptodo '(later|math)'      ; print all items with tags 'later' or 'math'
-		ptodo (math200\d)         ; print all math items with tags like math2007
+    ptodo later               ; print all items with tags named 'later'
+    ptodo later math          ; print all items with tags 'later' and 'math'
+    ptodo '(later|math)'      ; print all items with tags 'later' or 'math'
+    ptodo (math200\d)         ; print all math items with tags like math2007
     ptodo --dated             ; print all dated items
     ptodo --due               ; print all due items (2 weeks ahead)
     ptodo --remind| remind -c -       ; pipe into remind program
+
+For a full description see http://ptodo.rubyforge.org/
 
 EXAMPLE
 
@@ -45,7 +47,7 @@ EXAMPLE
     options.showtags = t
   end
 
-  opts.on("--line", "Show line info") do |l|
+  opts.on("-l", "--line", "Show line info") do |l|
     options.line = l
   end
 
@@ -63,8 +65,8 @@ EXAMPLE
 
   opts.on("--remind", "Generate output for remind") do |r|
     options.remind = r
-		options.no_color = true
-		options.quiet = true
+    options.no_color = true
+    options.quiet = true
   end
 
   opts.on("-q", "--quiet", "Run quietly") do |q|
@@ -90,7 +92,7 @@ print PTODO_VERSION,"\n" if not options.quiet
 terminal.normal
 
 # if ARGV.size == 0 and not (options.showtags or options.remind or options.dated)
-#	print(opts)
+#  print(opts)
 # end
 
 ARGV.push 'soon' if ARGV.size == 0 and not options.due
@@ -99,9 +101,9 @@ config = TodoConfig.new
 
 infiles = []
 if options.filename
-	infiles.push options.filename
+  infiles.push options.filename
 else
-	infiles = config['todos']
+  infiles = config['todos']
 end
 
 todos = Todos.new
@@ -109,17 +111,17 @@ todos = Todos.new
 exit if infiles == nil
 
 infiles.each do | fn |
-	line = 0
-	File.new(fn).each_line do | s |
-		line += 1
-		todos.add(s,line,fn)
-	end
+  line = 0
+  File.new(fn).each_line do | s |
+    line += 1
+    todos.add(s,line,fn)
+  end
 end
 
 if options.showtags
-	todos.print_tags
+  todos.print_tags
 elsif options.remind
-	todos.print_remind(options)
+  todos.print_remind(options)
 else
-	todos.print_filtered(ARGV,options)
+  todos.print_filtered(ARGV,options)
 end

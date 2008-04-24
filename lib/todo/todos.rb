@@ -132,7 +132,7 @@ class Todo
   def initialize s, line, fn
     @isvalid = false
     return if s.strip.size == 0
-    return if s =~ /^#/
+    return if s =~ /^#/ or s =~ /^\s+[-.]/
     @original = s  
     @line     = line
     @fn       = fn
