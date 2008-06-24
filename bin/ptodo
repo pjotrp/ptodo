@@ -24,12 +24,13 @@ opts = OptionParser.new() { |opts|
 
 Examples:
 
+    ptodo soon                ; print all non-tagged items
     ptodo later               ; print all items with tags named 'later'
     ptodo later math          ; print all items with tags 'later' and 'math'
     ptodo '(later|math)'      ; print all items with tags 'later' or 'math'
     ptodo (math200\\d)         ; print all math items with tags like math2007
     ptodo --dated             ; print all dated items
-    ptodo --due               ; print all due items (2 weeks ahead)
+    ptodo --due               ; print all due items (2 weeks ahead) [default]
     ptodo --remind| remind -c -       ; pipe into remind program
 
 For a full description see http://ptodo.rubyforge.org/
@@ -95,7 +96,7 @@ terminal.normal
 #  print(opts)
 # end
 
-ARGV.push 'soon' if ARGV.size == 0 and not options.due
+options.due = true if ARGV.size == 0
 
 config = TodoConfig.new
 

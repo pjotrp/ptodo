@@ -2,6 +2,12 @@
 # $Source: /home/cvs/opensource/lib/ruby/ui/term/format.rb,v $
 #
 # Terminal formatting facilities
+#
+# Info:: Pjotr's shared Ruby modules
+# Author:: Pjotr Prins
+# mail:: pjotr.public05@thebird.nl
+# Copyright:: July 2007
+# License:: Ruby License
 
 LITERAL=<<EOL
 
@@ -106,4 +112,3 @@ module TermFormat
   end
 
 end
-

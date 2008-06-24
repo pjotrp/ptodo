@@ -1,3 +1,9 @@
+#
+# Info:: Pjotr's shared Ruby modules
+# Author:: Pjotr Prins
+# mail:: pjotr.public05@thebird.nl
+# Copyright:: July 2007
+# License:: Ruby License
 
 class ConfigFile < Hash
 
