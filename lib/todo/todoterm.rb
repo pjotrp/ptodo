@@ -4,7 +4,7 @@
 # Copyright:: July 2007
 # License:: Ruby License
 
-require 'ruby/ui/term/format'
+require 'ui/term/format'
 
 class TodoTerm
 

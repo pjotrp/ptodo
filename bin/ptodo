@@ -1,23 +1,21 @@
 #! /usr/bin/ruby
 #
 # Author:: Pjotr Prins
-# Copyright:: July 2007
+# Copyright:: March 2009
 # License:: Ruby License
 
 rootpath = File.dirname(File.dirname(__FILE__))
-$: << rootpath+'/lib' 
-
+$: << rootpath+'/lib' << rootpath+'/lib/ruby'
 
 require 'optparse'
 require 'ostruct'
-# require 'util/other/version'
+require 'util/other/version'
 require 'todo/todos'
 require 'todo/todoconfig'
 require 'todo/todoterm'
 require 'todo/newtodos'
 
-# PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins'
-PTODO_VERSION = 'ptodo 0.31 VERSION by Pjotr Prins'
+PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins'
 
 options = OpenStruct.new()
 opts = OptionParser.new() { |opts|

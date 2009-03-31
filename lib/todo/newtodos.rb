@@ -3,11 +3,16 @@
 # License:: Ruby License
 # Email: ojos@gmx.ch
 
-
-class Newtodos
+begin
   require 'rubygems'
   require 'chronic'
   require 'date' 
+rescue LoadError
+  $stderr.print "Warning: chronic gem not installed"
+end
+
+
+class Newtodos
 
   @todo_string = ''
 
