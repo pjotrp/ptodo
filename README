@@ -2,6 +2,8 @@ pTODO is a command line todo manager, written in Ruby, which hooks into the
 remind calender tool. Unlike other textual todo managers it works from a
 straight text file - with an easy format for tags and dates.
 
+ptodo has nice colour support for VIM and does colour output in the console.
+
 Run './bin/ptodo --help' to see all options.
 
 For a full description see http://ptodo.rubyforge.org/
