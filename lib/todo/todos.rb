@@ -188,7 +188,7 @@ class Todo
   # These are marked with a 'nodiary' or 'nd' tag.
   def isdiary?
     tags.each do | tag |
-      return false if tag == 'nodiary' or tag == 'nd'
+      return false if tag == 'nodiary' or tag == 'nd' or tag == '!'
     end
     true
   end

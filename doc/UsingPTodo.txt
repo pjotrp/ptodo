@@ -131,6 +131,16 @@ tag are always listed at the end.
 'later' is a special tag for marking items that have no immediate
 concern.
 
+Other special tags are:
+
+'nodiary', 'nd' or '!' - display an item in the ptodo list, but not
+in the remind calender. Example:
+
+{{{
+01/04 [admin nodiary] Check tax return
+02/04 [! shop]        Buy light bulbs
+}}}
+
 ||attachment:ptodo4.png ||
 
 Here we pipe dated items in the pTODO list to the remind calender
