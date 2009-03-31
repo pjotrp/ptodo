@@ -4,7 +4,7 @@
 # License:: Ruby License
 TODOCONFIG = ENV['HOME']+'/.ptodo'
 
-require 'fs/configfile'
+require 'ruby/fs/configfile'
 
 class TodoConfig < ConfigFile
 

@@ -7,14 +7,17 @@
 rootpath = File.dirname(File.dirname(__FILE__))
 $: << rootpath+'/lib' 
 
+
 require 'optparse'
 require 'ostruct'
-require 'util/other/version'
+# require 'util/other/version'
 require 'todo/todos'
 require 'todo/todoconfig'
 require 'todo/todoterm'
+require 'todo/newtodos'
 
-PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins'
+# PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins'
+PTODO_VERSION = 'ptodo 0.31 VERSION by Pjotr Prins'
 
 options = OpenStruct.new()
 opts = OptionParser.new() { |opts|
@@ -32,6 +35,9 @@ Examples:
     ptodo --dated             ; print all dated items
     ptodo --due               ; print all due items (2 weeks ahead) [default]
     ptodo --remind| remind -c -       ; pipe into remind program
+
+    ptodo -a date [tags] -m "description"
+    ex: ptodo -a tomorrow [joe] -m "dinner with joe"
 
 For a full description see http://ptodo.rubyforge.org/
 
@@ -82,6 +88,30 @@ EXAMPLE
     options.trace = t
   end
 
+  opts.on('-a date [tags] -m "msg"', "Add item to Todo list") do |t|
+    options.add = true
+#     puts ARGV
+    add_args = t + " "
+    puts ARGV[0]
+    ARGV.each do |arg|
+#       puts "arg: " + arg
+      if arg == '-m'
+        add_args += '"'
+      else
+        add_args += arg+" "
+      end
+    end
+      puts add_args
+      add_args = add_args[0..-2]
+      puts add_args
+      add_args += '"'
+      puts add_args
+    options.add_args = add_args
+  end
+
+  opts.on("-m")
+
+
 }
 opts.parse!(ARGV)
 
@@ -107,9 +137,17 @@ else
   infiles = config['todos']
 end
 
-todos = Todos.new
 
 exit if infiles == nil
+arguments = ARGV
+
+if options.add
+  newtodos = Newtodos.new(options.add_args)
+  newtodos.add_to_file(infiles)
+  arguments = '' # to show the todo list anyway
+end
+
+todos = Todos.new
 
 infiles.each do | fn |
   line = 0
@@ -119,10 +157,12 @@ infiles.each do | fn |
   end
 end
 
+
 if options.showtags
   todos.print_tags
 elsif options.remind
   todos.print_remind(options)
 else
-  todos.print_filtered(ARGV,options)
+  todos.print_filtered(arguments,options)
 end
+

@@ -24,7 +24,7 @@ class Priority
       @isdate = true
       short = $1
       guessyear = (@pri !~ /\d+\/\d+\/20/)
-      @pri = short+'/2007' if guessyear
+      @pri = short+'/2009' if guessyear
       @pri =~ /(\d+)\/(\d+)\/(\d+)/
       year = $3
       month = $2
