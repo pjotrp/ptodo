@@ -1,0 +1,10 @@
+
+0.90 (April 2009)
+
+- Added tag 'nodiary' or 'nd' for items that should not show in remind
+- Generalized year guessing 
+- Modifications by Michael J. Bruderer - allow adding an item like:
+   add a todo-item with the command ptodo -a in 2 days [ some tags] "my meeting with joe" 
+- Colour syntax file for vim
+- Added symbols for indented lines 
+- Multi line support (indented lines are part of a container)

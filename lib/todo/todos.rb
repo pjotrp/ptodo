@@ -183,6 +183,15 @@ class Todo
     end
     false
   end
+
+  # returns whether an item is only shown in the TODO list (no export to remind)
+  # These are marked with a 'nodiary' or 'nd' tag.
+  def isdiary?
+    tags.each do | tag |
+      return true if tag == 'nodiary'
+    end
+    false
+  end
   
   def expired? 
     @priority.expired?
@@ -363,7 +372,7 @@ class Todos
     reminders = ENV['HOME']+'/.reminders'
     print "include #{reminders}\n" if File.exist? reminders
     @list.sort.each do | todo |
-      if todo.date?
+      if todo.date? and todo.isdiary?
         todo.print_remind options
       end
     end
