@@ -1,6 +1,6 @@
 #
 # Author:: Pjotr Prins
-# Copyright:: July 2007
+# Copyright:: July 2007, March 2009
 # License:: Ruby License
 
 class Fixnum
@@ -24,7 +24,7 @@ class Priority
       @isdate = true
       short = $1
       guessyear = (@pri !~ /\d+\/\d+\/20/)
-      @pri = short+'/2009' if guessyear
+      @pri = short+'/'+Time.now.year.to_s if guessyear
       @pri =~ /(\d+)\/(\d+)\/(\d+)/
       year = $3
       month = $2
