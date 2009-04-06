@@ -7,8 +7,9 @@ begin
   require 'rubygems'
   require 'chronic'
   require 'date' 
+  $CHRONIC_INSTALLED=true
 rescue LoadError
-  $stderr.print "Warning: chronic gem not installed"
+  $CHRONIC_INSTALLED=false
 end
 
 
@@ -17,11 +18,11 @@ class Newtodos
   @todo_string = ''
 
   def initialize s=''
+    $stderr.print "Warning: chronic gem not installed - you can not add new todos\n"
     msg = self.extract_msg(s)
     tags = self.extract_tags(s)
     date = extract_date(s)
     @todo_string = "\n#{date} #{tags} #{msg}"
-
   end
 
   def extract_msg(s)
