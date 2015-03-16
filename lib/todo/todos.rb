@@ -17,8 +17,9 @@ class Priority
   # it is for next year.
 
   def initialize s=''
+    @pri = ""
     @original = s
-    @pri = s.strip
+    @pri = s.strip if s
     @isdate = false
     if @pri =~ /(\d+\/\d+)/
       @isdate = true
@@ -29,11 +30,16 @@ class Priority
       year = $3
       month = $2
       day = $1
-      @time = Time.local(year,month,day)
-      while guessyear and @time < Time.now - 3*30*24*3600
-        year = year.to_i + 1
+      # p [year,month,day]
+      begin
         @time = Time.local(year,month,day)
-        # p [@time,@original]
+        while guessyear and @time < Time.now - 3*30*24*3600
+          year = year.to_i + 1
+          @time = Time.local(year,month,day)
+          # p [@time,@original]
+        end
+      rescue RangeError
+        raise "RangeError in "+s
       end
       @pri = year.to_s + month + day
     end
@@ -98,7 +104,7 @@ class Priority
   end
 
   def empty?
-    @pri.size == 0 and not date?
+    @pri and @pri.size == 0 and not date?
   end
 
   def has?
@@ -130,6 +136,7 @@ class Todo
   DPOS = 25
 
   def initialize s, line, fn
+    # p [fn,line,s]
     @isvalid = false
     return if s.strip.size == 0
     return if s =~ /^#/

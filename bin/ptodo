@@ -1,4 +1,4 @@
-#! /usr/bin/ruby
+#! /usr/bin/env ruby
 #
 # Author:: Pjotr Prins
 # Copyright:: March 2009
@@ -132,7 +132,7 @@ infiles = []
 if options.filename
   infiles.push options.filename
 else
-  infiles = config['todos']
+  infiles.push config['todos']
 end
 
 
