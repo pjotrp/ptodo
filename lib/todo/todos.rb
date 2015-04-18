@@ -42,19 +42,22 @@ class Todo
       if s.strip =~ /^(\S)\s+(.*)/
         # A oneliner with a single letter priority (but no tags) e.g.
         #  ! test
-        @priority = Priority.new($1)
-        @description = $2
+        # @priority = Priority.new($1)
+        # @description = $2
+        # @tags = [ 'soon' ]
+        return
       elsif s.strip =~ /^\d+\/\d+/
         # Ah, it has a date
         s.strip =~ /^(\S+)\s+(.*)/
         @priority = Priority.new($1)
         @description = $2
+        @tags = [ 'soon' ]
       else
         # A oneliner without tags
-        @priority = Priority.new('-')
-        @description = s.strip
+        # @priority = Priority.new('-')
+        # @description = s.strip
+        return
       end
-      @tags = [ 'soon' ]
     end
     @isvalid = true
   end
@@ -216,6 +219,7 @@ class Todos
   end
   
   def add s, line, fn
+    p [s,line,fn] if $debug
     todo = Todo.new(s,line,fn)
     @list.push(todo) if todo.valid?
   end

@@ -82,8 +82,12 @@ EXAMPLE
     options.verbose = v
   end
 
-  opts.on("-t", "--[no-]trace", "Debug") do |t|
+  opts.on("-t", "--[no-]trace", "Trace") do |t|
     options.trace = t
+  end
+
+  opts.on("-d", "--[no-]debug", "Debug") do |t|
+    $debug = t
   end
 
   opts.on('-a date [tags] -m "msg"', "Add item to Todo list") do |t|
@@ -149,7 +153,7 @@ todos = Todos.new
 
 infiles.each do | fn |
   line = 0
-  File.new(fn).each_line do | s |
+  File.new(fn,:encoding => "UTF-8").each_line do | s |
     line += 1
     todos.add(s,line,fn)
   end
