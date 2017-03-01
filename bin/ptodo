@@ -15,7 +15,7 @@ require 'todo/todoconfig'
 require 'todo/todoterm'
 require 'todo/newtodos'
 
-PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins'
+PTODO_VERSION = 'ptodo '+Version.get(File.dirname(__FILE__),'VERSION')+' by Pjotr Prins (2007-2017)'
 
 options = OpenStruct.new()
 opts = OptionParser.new() { |opts|
@@ -43,7 +43,7 @@ EXAMPLE
 
     exit()
   }
-  
+
   opts.on('-f filename',String,"Read from file (default from config)") do | s |
     options.filename = s
   end
@@ -88,6 +88,7 @@ EXAMPLE
 
   opts.on("-d", "--[no-]debug", "Debug") do |t|
     $debug = t
+    $stderr.puts "DEBUG MODE"
   end
 
   opts.on('-a date [tags] -m "msg"', "Add item to Todo list") do |t|
@@ -152,10 +153,22 @@ end
 todos = Todos.new
 
 infiles.each do | fn |
+  raise Exception.new("File #{fn} does not exist") if !File.exist?(fn)
+  $stderr.print "Reading #{fn}...\n" if options.verbose
   line = 0
-  File.new(fn,:encoding => "UTF-8").each_line do | s |
-    line += 1
-    todos.add(s,line,fn)
+  begin
+    # File.new(fn,:encoding => "r:utf-8").each_line do | s |
+    File.new(fn,"r:ISO-8859-1:UTF-8").each_line do | s |
+      line += 1
+      todos.add(s,line,fn)
+    end
+  rescue
+    $stderr.print "Does your Ruby version support UTF-8? #{RUBY_VERSION} default #{Encoding.default_external}- try --debug\n"
+    $stderr.puts("Reading: "+fn) if $debug
+    File.new(fn).each_line do | s |
+      line += 1
+      todos.add(s,line,fn)
+    end
   end
 end
 
@@ -167,4 +180,3 @@ elsif options.remind
 else
   todos.print_filtered(arguments,options)
 end
-
