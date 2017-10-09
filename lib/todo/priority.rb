@@ -4,7 +4,7 @@
 #
 # The Priority class handles priority tags based on the contained date
 
-class Fixnum
+class Integer
   def max i
     return i if i > self
     self
@@ -67,14 +67,14 @@ class Priority
     end
     return !more_than_two_weeks_away?
   end
- 
+
   def more_than_two_weeks_away?
     if @isdate
       return (@time > Time.now + 14*24*3600)
     end
     false
   end
-  
+
   # One month ahead
 
   def more_than_one_month_away?
@@ -90,7 +90,7 @@ class Priority
 
   def remind_s
     s = @time.strftime("%d %b %Y")
-    s += @time.strftime(" at %H:%M") if @time.hour != 0 
+    s += @time.strftime(" at %H:%M") if @time.hour != 0
     s
   end
 
@@ -111,16 +111,16 @@ class Priority
   def has?
     !empty?
   end
-  
+
   def size
     to_s.size
   end
-  
+
   def sortby
     if date?
       return time_s
     end
     @pri.rjust(30)
   end
-  
+
 end
