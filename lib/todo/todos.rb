@@ -22,7 +22,7 @@ class Todo
     return if s =~ /^#/
     return if s =~ /^\s+[-.+*x=]\s+[^\[]/
 
-    @original = s  
+    @original = s
     @line     = line
     @fn       = fn
     @displayfn = File.basename(fn).sub(/\.\w+$/,'')
@@ -82,15 +82,15 @@ class Todo
     end
     true
   end
-  
-  def expired? 
+
+  def expired?
     @priority.expired?
   end
 
   def has_priority?
     @priority.has?
   end
-  
+
   # returns expiry date
   def date
   end
@@ -106,11 +106,11 @@ class Todo
     end
     false
   end
- 
+
   def print_remind options
     print @priority.remind_s
     print ' ',@description[0,25]
-    print '...' if @description.size > 25 
+    print '...' if @description.size > 25
     print "\n"
   end
 
@@ -122,7 +122,7 @@ class Todo
 
     tpos   = pwidth.max(TPOS)
     dpos   = twidth.max(DPOS)
-  
+
     printf("%s%3d: ",@displayfn,@line) if options.line
     if date?
       if expired?
@@ -201,29 +201,29 @@ class Todo
 
 protected
 
-  def priority_width 
+  def priority_width
     @priority.size
   end
 
   def tags_width
     @tags.join(' ').size
   end
-  
+
 end
 
 # This class maintains a list of TodoItems
-class Todos 
+class Todos
 
   def initialize
     @list = []
   end
-  
+
   def add s, line, fn
     p [s,line,fn] if $debug
     todo = Todo.new(s,line,fn)
     @list.push(todo) if todo.valid?
   end
- 
+
   def no_later_list
     list = []
     @list.each do | todo |
@@ -258,7 +258,7 @@ class Todos
   end
 
   # Generate output for the remind program that can be piped in
- 
+
   def print_remind options
     reminders = ENV['HOME']+'/.reminders'
     print "include #{reminders}\n" if File.exist? reminders
@@ -275,7 +275,7 @@ class Todos
     if options.due
       return todo.due?
     end
-    (not options.dated and todo.apply_filter(filters)) or (options.dated and todo.date?) 
+    (not options.dated and todo.apply_filter(filters)) or (options.dated and todo.date?)
   end
 
   def print_filtered filters, options
@@ -290,11 +290,11 @@ class Todos
       todo.prettyprint(options) if selected?(todo,filters,options)
     end
   end
- 
+
   def print_line color
     terminal = TodoTerm.new color
-    terminal.green 
+    terminal.green
     print '-'*70,"\n"
-    terminal.normal 
+    terminal.normal
   end
 end

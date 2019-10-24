@@ -165,7 +165,7 @@ infiles.each do | fn |
   rescue
     $stderr.print "Does your Ruby version support UTF-8? #{RUBY_VERSION} default #{Encoding.default_external}- try --debug\n"
     $stderr.puts("Reading: "+fn) if $debug
-    File.new(fn).each_line do | s |
+    File.new(fn,"r:ISO-8859-1:UTF-8").each_line do | s |
       line += 1
       todos.add(s,line,fn)
     end
