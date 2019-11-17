@@ -20,7 +20,7 @@ class Todo
     @isvalid = false
     return if s.strip.size == 0
     return if s =~ /^#/
-    return if s =~ /^\s*[*\+\-]/    # Skip org lists
+    return if s =~ /^\s*[*\+\-]/ and s !~ /^\s*[-+] \[[^X]/  # Skip org lists
     return if s =~ /^\s+[\[][\]]/   # Skip emty check boxes
     return if s =~ /^\s+[-.+*x=]\s+[^\[]/
 
