@@ -4,9 +4,8 @@ straight text file - with an easy format for tags and dates.
 
 ptodo has nice colour support for VIM and does colour output in the console.
 
+    ptodo | less -R
+
 Run './bin/ptodo --help' to see all options.
 
-For a full description see http://ptodo.rubyforge.org/
-
 Pjotr Prins
-
