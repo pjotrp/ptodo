@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 #
 # Author:: Pjotr Prins
-# Copyright:: March 2009
+# Copyright:: 2009-2022
 # License:: Ruby License
 
 rootpath = File.dirname(File.dirname(__FILE__))
@@ -35,9 +35,11 @@ Examples:
     ptodo --remind| remind -c -       ; pipe into remind program
 
     ptodo -a date [tags] -m "description"
-    ex: ptodo -a tomorrow [joe] -m "dinner with joe"
+    ptodo -a tomorrow [joe] -m "dinner with joe"
 
-For a full description see http://ptodo.rubyforge.org/
+To run nice calender style output:
+
+    ptodo --remind|remind -p3 -|rem2ps > months.ps
 
 EXAMPLE
 
