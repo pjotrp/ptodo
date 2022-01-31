@@ -22,6 +22,8 @@ class Todo
     return if s =~ /^#/
     return if s =~ /^\s*[*\+\-]/ and s !~ /^\s*[-+] \[[^X]/  # Skip org lists
     return if s =~ /^\s+[\[][\]]/   # Skip emty check boxes
+    return if s =~ /^\s*-\s+\[.\]/   # Skip emty check boxes
+    return if s =~ /^\s*\+\s+\[.\]/   # Skip emty check boxes
     return if s =~ /^\s+[-.+*x=]\s+[^\[]/
 
     @original = s
